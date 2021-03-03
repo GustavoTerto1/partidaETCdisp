@@ -9,7 +9,7 @@
 #include <xc.h>
 #include "config.h"
 
-void delay ( int t )
+void delay ( unsigned int t )
 {
     while ( t )
     {
