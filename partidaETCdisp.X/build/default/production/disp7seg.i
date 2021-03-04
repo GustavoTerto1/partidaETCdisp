@@ -1,4 +1,4 @@
-# 1 "main.c"
+# 1 "disp7seg.c"
 # 1 "<built-in>" 1
 # 1 "<built-in>" 3
 # 288 "<built-in>" 3
@@ -6,12 +6,7 @@
 # 1 "<built-in>" 2
 # 1 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\language_support.h" 1 3
 # 2 "<built-in>" 2
-# 1 "main.c" 2
-
-
-
-
-
+# 1 "disp7seg.c" 2
 
 
 
@@ -2499,7 +2494,7 @@ extern __bank0 unsigned char __resetbits;
 extern __bank0 __bit __powerdown;
 extern __bank0 __bit __timeout;
 # 27 "C:\\Program Files (x86)\\Microchip\\xc8\\v2.00\\pic\\include\\xc.h" 2 3
-# 9 "main.c" 2
+# 4 "disp7seg.c" 2
 
 # 1 "./config.h" 1
 
@@ -2520,115 +2515,22 @@ extern __bank0 __bit __timeout;
 
 #pragma config BOR4V = BOR40V
 #pragma config WRT = OFF
-# 10 "main.c" 2
-
-# 1 "./botoes.h" 1
+# 5 "disp7seg.c" 2
 
 
+char vetor[16] = { 0x3F, 0x06, 0x5B, 0x4F,
+                   0x66, 0x6D, 0x7D, 0x07,
+                   0x7F, 0x6F, 0x77, 0x7C,
+                   0x39, 0x5E, 0x79, 0x71 };
 
-void botao_init (void);
-int s1 (void);
-int s0 (void);
-# 11 "main.c" 2
-
-# 1 "./contatores.h" 1
-
-
-
-void contatores_init( void );
-void k1 (int estado);
-void k2 (int estado);
-void k3 (int estado);
-# 12 "main.c" 2
-
-# 1 "./delay.h" 1
-
-
-
-void delay ( unsigned int t );
-# 13 "main.c" 2
-
-# 1 "./disp7seg.h" 1
-
-
-
-void display7seg_init ( void );
-void display7seg ( int c );
-# 14 "main.c" 2
-
-
-
-void main(void)
+void display7seg_init ( void )
 {
-   unsigned char cont = 0;
-    int t;
-    char estado = 0;
+    ANSELH = 0;
+    TRISB = 0x00;
+    PORTB = 0x00;
+}
 
-    while( 1 )
-     {
-        switch( estado )
-         {
-            case 0:
-                    estado = 1;
-                     break;
-            case 1:
-                    display7seg_init();
-                    contatores_init();
-                    botao_init();
-                    estado = 2;
-                     break;
-
-            case 2:
-                    if( s1() == 1 )
-                        estado = 3;
-                     break;
-            case 3:
-
-                    k1( 1 );
-                    k2( 1 );
-                    k3( 0 );
-                    estado = 4;
-                     break;
-            case 4:
-                   t = 2000;
-                    estado = 5;
-                     break;
-            case 5:
-                    delay(1);
-                    --t;
-                    if( t <= 0)
-                    estado = 6;
-                    if ( s0() == 1 )
-                    estado = 9;
-                     break;
-            case 6:
-                    k1 ( 1 );
-                    k2 ( 0 );
-                    k3 ( 1 );
-
-                    estado = 7;
-                     break;
-            case 7:
-                   display7seg( cont );
-                   ++cont;
-                   if ( cont >= 10 )
-                        cont = 0;
-                    estado = 8;
-                    break;
-            case 8:
-                    if( s0() == 1 )
-                    estado = 9;
-                    break;
-            case 9:
-                    k1 ( 0 );
-                    k2 ( 0 );
-                    k3 ( 0 );
-                    estado = 2;
-                    break;
-
-
-
-        }
-          display7seg( cont );
-   }
+void display7seg ( int c )
+{
+    PORTB = vetor[c];
 }

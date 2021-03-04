@@ -11,11 +11,15 @@
 #include "botoes.h"
 #include "contatores.h"
 #include "delay.h"
+#include "disp7seg.h"
+
 
 void main(void)
 {
-    int estado = 0;
+   unsigned char cont = 0;
     int t; 
+    char estado = 0;
+   
     while( 1 )
      {
         switch( estado )
@@ -24,7 +28,7 @@ void main(void)
                     estado = 1;
                      break;
             case 1:
-                
+                    display7seg_init();
                     contatores_init();
                     botao_init();
                     estado = 2;
@@ -32,9 +36,10 @@ void main(void)
                     
             case 2:        
                     if( s1() == 1 )
-                    estado = 3;
+                        estado = 3;
                      break;    
-            case 3:         
+            case 3:
+                    
                     k1( 1 );
                     k2( 1 );
                     k3( 0 );
@@ -49,22 +54,37 @@ void main(void)
                     --t;
                     if( t <= 0)
                     estado = 6;
+                    if ( s0() == 1 )
+                    estado = 9; 
                      break;
             case 6:
-                
                     k1 ( 1 );
                     k2 ( 0 );    
                     k3 ( 1 );  
-                    if( s0() == 1 )
+                   
                     estado = 7;
                      break;
             case 7:
+                   display7seg( cont );
+                   ++cont;
+                   if ( cont >= 10 )
+                        cont = 0;     
+                    estado = 8;
+                    break; 
+            case 8:
+                    if( s0() == 1 )
+                    estado = 9;
+                    break;         
+            case 9:
                     k1 ( 0 );
                     k2 ( 0 );    
                     k3 ( 0 );
-                    estado = 8;
-                    break; 
-         }
-      }
+                    estado = 2;
+                    break;
+                    
+                         
+                    
+        }
+          display7seg( cont );            
+   }
 }
-
