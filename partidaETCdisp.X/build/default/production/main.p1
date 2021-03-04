@@ -409,32 +409,32 @@ Version 4.0 HI-TECH Software Intermediate Code
 [; ;main.c: 57:                     k3 ( 1 );
 [e ( _k3 (1 -> 1 `i ]
 "58
-[; ;main.c: 58:                     estado = 7;
-[e = _estado -> 7 `i ]
+[; ;main.c: 58:                     if( s0() == 1 )
+[e $ ! == ( _s0 ..  -> 1 `i 153  ]
 "59
-[; ;main.c: 59:                      break ;
-[e $U 142  ]
-"60
-[; ;main.c: 60:             case 7:
+[; ;main.c: 59:                     estado = 7;
+[e = _estado -> 7 `i ]
 [e :U 153 ]
+"60
+[; ;main.c: 60:                      break;
+[e $U 142  ]
 "61
-[; ;main.c: 61:                     if( s0() == 1 )
-[e $ ! == ( _s0 ..  -> 1 `i 154  ]
-"62
-[; ;main.c: 62:                       k1 ( 0 );
-[e ( _k1 (1 -> 0 `i ]
+[; ;main.c: 61:             case 7:
 [e :U 154 ]
+"62
+[; ;main.c: 62:                     k1 ( 0 );
+[e ( _k1 (1 -> 0 `i ]
 "63
-[; ;main.c: 63:                       k2 ( 0 );
+[; ;main.c: 63:                     k2 ( 0 );
 [e ( _k2 (1 -> 0 `i ]
 "64
-[; ;main.c: 64:                       k3 ( 0 );
+[; ;main.c: 64:                     k3 ( 0 );
 [e ( _k3 (1 -> 0 `i ]
 "65
 [; ;main.c: 65:                     estado = 8;
 [e = _estado -> 8 `i ]
 "66
-[; ;main.c: 66:                      break ;
+[; ;main.c: 66:                     break;
 [e $U 142  ]
 "67
 [; ;main.c: 67:          }
@@ -448,7 +448,7 @@ Version 4.0 HI-TECH Software Intermediate Code
  , $ -> 4 `i 149
  , $ -> 5 `i 150
  , $ -> 6 `i 152
- , $ -> 7 `i 153
+ , $ -> 7 `i 154
  142 ]
 [e :U 142 ]
 "68

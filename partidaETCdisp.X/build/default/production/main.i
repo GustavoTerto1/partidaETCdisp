@@ -2592,15 +2592,15 @@ void main(void)
                     k1 ( 1 );
                     k2 ( 0 );
                     k3 ( 1 );
-                    estado = 7;
-                     break ;
-            case 7:
                     if( s0() == 1 )
-                      k1 ( 0 );
-                      k2 ( 0 );
-                      k3 ( 0 );
+                    estado = 7;
+                     break;
+            case 7:
+                    k1 ( 0 );
+                    k2 ( 0 );
+                    k3 ( 0 );
                     estado = 8;
-                     break ;
+                    break;
          }
       }
 }
